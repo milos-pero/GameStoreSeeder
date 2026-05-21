@@ -90,5 +90,9 @@
             Console.WriteLine();
             return password;
         }
+        public override string ToString()
+        {
+            return $"[{DbType}] {Username}@{Host}:{Port}/{Database}";
+        }
     }
 }
