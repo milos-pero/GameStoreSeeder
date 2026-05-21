@@ -1,31 +1,29 @@
-﻿namespace GameStoreSeeder.Schema
+﻿namespace DBDataGenerator.Schema;
+
+public class ColumnInfo
 {
-    public class ColumnInfo
+    public string Name { get; set; } = string.Empty;
+    public string DataType { get; set; } = string.Empty;
+    public bool IsNullable { get; set; }
+    public bool IsPrimaryKey { get; set; }
+    public bool IsForeignKey { get; set; }
+    public int? MaxLength { get; set; }
+    public string? ReferencedTable { get; set; }
+    public string? ReferencedColumn { get; set; }
+
+    public override string ToString()
     {
-        public string Name { get; set; } = string.Empty;
-        public string DataType { get; set; } = string.Empty;
-        public bool IsNullable { get; set; }
-        public bool IsPrimaryKey { get; set; }
-        public bool IsForeignKey { get; set; }
+        var flags = new List<string>();
 
-        //Reference points incase its a FK
-        public string? ReferencedTable { get; set; }
-        public string? ReferencedColumn { get; set; }
+        if (IsPrimaryKey) flags.Add("PK");
 
-        public override string ToString()
-        {
+        if (IsForeignKey) flags.Add($"FK -> {ReferencedTable}.{ReferencedColumn}");
 
-            var flags = new List<string>();
+        if (IsNullable) flags.Add("nullable");
 
-            if (IsPrimaryKey) flags.Add("PK");
+        if (MaxLength.HasValue) flags.Add($"max:{MaxLength}");
 
-            if (IsForeignKey) flags.Add($"FK -> {ReferencedTable}.{ReferencedColumn}");
-
-            if (IsNullable) flags.Add("nullable");
-
-            var flagStr = flags.Count > 0 ? $" ({string.Join(", ", flags)})" : "";
-
-            return $"{Name} ({DataType}){flagStr}";
-        }
+        var flagStr = flags.Count > 0 ? $" [{string.Join(", ", flags)}]" : "";
+        return $"{Name} ({DataType}){flagStr}";
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GameStoreSeeder.Schema
+﻿namespace DBDataGenerator.Schema
 {
     public class TableInfo
     {

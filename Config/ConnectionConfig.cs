@@ -1,4 +1,4 @@
-﻿namespace GameStoreSeeder.Config
+﻿namespace DBDataGenerator.Config
 {
     public enum DatabaseType
     {
